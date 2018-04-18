@@ -1,4 +1,5 @@
 package com.dkkcorp.recipe.model;
 
-public class Difficulty {
+public enum Difficulty {
+    EASY,MEDIUM,HARD
 }

@@ -14,14 +14,19 @@ public class Recipe {
     private Integer serving;
     private String source;
     private String url;
-    @OneToOne
+    @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
     @Lob
     private Byte[] image;
     @OneToOne(cascade = CascadeType.ALL)
     private Note note;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipeIn")
     private Set<Ingredient> ingredientList;
+
+    @ManyToMany
+    @JoinTable(name = "recipe_category", joinColumns = @JoinColumn(name = "recipe_id"),inverseJoinColumns = @JoinColumn(name =   "category_id"))
+    private Set<Category> categoryList;
 
     public Integer getId() {
         return id;
@@ -101,5 +106,21 @@ public class Recipe {
 
     public void setNote(Note note) {
         this.note = note;
+    }
+
+    public Set<Ingredient> getIngredientList() {
+        return ingredientList;
+    }
+
+    public void setIngredientList(Set<Ingredient> ingredientList) {
+        this.ingredientList = ingredientList;
+    }
+
+    public Set<Category> getCategoryList() {
+        return categoryList;
+    }
+
+    public void setCategoryList(Set<Category> categoryList) {
+        this.categoryList = categoryList;
     }
 }
