@@ -1,10 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xml:>
+<html lang="en" xml: xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8"/>
     <title>My Recipe </title>
 </head>
 <body>
 <H1>Welcome to My recipe!!!</H1>
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Description</th>
+        <th>preparation time</th>
+    </tr>
+    <tr th:each="recipe : ${recipes}">
+        <td th:text="${recipe.id}">123</td>
+        <td th:text="${recipe.description}">Tasty Goodnees</td>
+        <td th:text="${recipe.prepTime}+min">Tasty Goodnees</td>
+    </tr>
+</table>
 </body>
 </html>

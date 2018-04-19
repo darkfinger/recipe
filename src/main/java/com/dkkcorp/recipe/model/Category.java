@@ -1,8 +1,12 @@
 package com.dkkcorp.recipe.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.util.Set;
 
+@Data
+@EqualsAndHashCode(exclude = {"recipeList"})
 @Entity
 public class Category {
     @Id
@@ -12,27 +16,4 @@ public class Category {
     @ManyToMany(mappedBy = "categoryList")
     private Set<Recipe> recipeList;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Set<Recipe> getRecipeList() {
-        return recipeList;
-    }
-
-    public void setRecipeList(Set<Recipe> recipeList) {
-        this.recipeList = recipeList;
-    }
 }

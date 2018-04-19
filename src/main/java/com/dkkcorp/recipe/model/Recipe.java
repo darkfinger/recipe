@@ -1,8 +1,12 @@
 package com.dkkcorp.recipe.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
+@Data
 @Entity
 public class Recipe {
     @Id
@@ -22,105 +26,18 @@ public class Recipe {
     private Note note;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipeIn")
-    private Set<Ingredient> ingredientList;
+    private Set<Ingredient> ingredientList=new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "recipe_category", joinColumns = @JoinColumn(name = "recipe_id"),inverseJoinColumns = @JoinColumn(name =   "category_id"))
-    private Set<Category> categoryList;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Integer getPrepTime() {
-        return prepTime;
-    }
-
-    public void setPrepTime(Integer prepTime) {
-        this.prepTime = prepTime;
-    }
-
-    public Integer getCookTime() {
-        return cookTime;
-    }
-
-    public void setCookTime(Integer cookTime) {
-        this.cookTime = cookTime;
-    }
-
-    public Integer getServing() {
-        return serving;
-    }
-
-    public void setServing(Integer serving) {
-        this.serving = serving;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public Difficulty getDifficulty() {
-        return difficulty;
-    }
-
-    public void setDifficulty(Difficulty difficulty) {
-        this.difficulty = difficulty;
-    }
-
-    public Byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(Byte[] image) {
-        this.image = image;
-    }
-
-    public Note getNote() {
-        return note;
-    }
+    private Set<Category> categoryList=new HashSet<Category>();
 
     public void setNote(Note note) {
         this.note = note;
+        note.setRecipe(this);
     }
-
-    public Set<Ingredient> getIngredientList() {
-        return ingredientList;
-    }
-
-    public void setIngredientList(Set<Ingredient> ingredientList) {
-        this.ingredientList = ingredientList;
-    }
-
-    public Set<Category> getCategoryList() {
-        return categoryList;
-    }
-
-    public void setCategoryList(Set<Category> categoryList) {
-        this.categoryList = categoryList;
+    public void addIngredient(Ingredient i){
+        i.setRecipeIn(this);
+        this.getIngredientList().add(i);
     }
 }

@@ -1,31 +1,26 @@
 package com.dkkcorp.recipe.controller;
 
-import com.dkkcorp.recipe.model.Category;
-import com.dkkcorp.recipe.model.UnitOfMesure;
-import com.dkkcorp.recipe.repository.CategoryRepository;
-import com.dkkcorp.recipe.repository.UnitOfMesureRepository;
+
+import com.dkkcorp.recipe.service.RecipeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Optional;
-
+@Slf4j
 @Controller
 public class IndexController {
 
-    CategoryRepository categoryRepository;
-    UnitOfMesureRepository unitOfMesureRepository;
+    RecipeService recipeService;
 
-    public IndexController(CategoryRepository categoryRepository, UnitOfMesureRepository unitOfMesureRepository) {
-        this.categoryRepository = categoryRepository;
-        this.unitOfMesureRepository = unitOfMesureRepository;
+    public IndexController(RecipeService recipeService) {
+        this.recipeService = recipeService;
     }
 
     @RequestMapping({"/","","index"})
     public String index(Model model){
-        Optional<Category> category=categoryRepository.findByDescription("American");
-        Optional<UnitOfMesure> unitOfMesure=unitOfMesureRepository.findByUom("Cup");
-
+        model.addAttribute("recipes",recipeService.fetchAllRecipe());
+        log.debug("data set and sent to index");
         return "index";
     }
 }

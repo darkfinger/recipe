@@ -1,8 +1,12 @@
 package com.dkkcorp.recipe.model;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
-
+@Data
+@EqualsAndHashCode(exclude = {"recipeIn"})
 @Entity
 public class Ingredient {
     @Id
@@ -15,43 +19,10 @@ public class Ingredient {
     @ManyToOne()
     private Recipe recipeIn;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
+    public Ingredient(String description, BigDecimal amount, UnitOfMesure uom) {
         this.description = description;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
         this.amount = amount;
-    }
-
-    public Recipe getRecipeIn() {
-        return recipeIn;
-    }
-
-    public void setRecipeIn(Recipe recipeIn) {
-        this.recipeIn = recipeIn;
-    }
-
-    public UnitOfMesure getUom() {
-        return uom;
-    }
-
-    public void setUom(UnitOfMesure uom) {
         this.uom = uom;
     }
+
 }
