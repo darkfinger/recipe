@@ -41,11 +41,11 @@ public class DevBootstrap implements ApplicationListener<ContextRefreshedEvent> 
         Recipe r1=new Recipe();
         Note note=new Note();
         note.setNoteOfRecipe("1 Cut avocado, remove flesh: Cut the avocados in half. Remove seed. Score the inside of the avocado " +
-                "with a blunt knife and scoop out the flesh with a spoon. (See How to Cut and Peel an Avocado.) Place in a bowl."+
-                "2 Mash with a fork: Using a fork, roughly mash the avocado. (Don't overdo it! The guacamole should be a little chunky.)"+
+                "with a blunt knife and scoop out the flesh with a spoon. (See How to Cut and Peel an Avocado.) Place in a bowl.\n"+
+                "2 Mash with a fork: Using a fork, roughly mash the avocado. (Don't overdo it! The guacamole should be a little chunky.)\n"+
         "3 Add salt, lime juice, and the rest: Sprinkle with salt and lime (or lemon) juice. The acid in the lime juice will provide some " +
                 "balance to the richness of the avocado and will help delay the avocados from turning brown.");
-        r1.setDescription("The BEST guacamole! So easy to make with ripe avocado");
+        r1.setDescription("The BEST guacamole");
         r1.setPrepTime(10);
         r1.setCookTime(0);
         r1.setServing(4);

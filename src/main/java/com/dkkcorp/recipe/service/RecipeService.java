@@ -7,4 +7,5 @@ import java.util.List;
 public interface RecipeService {
 
     List<Recipe> fetchAllRecipe();
+    Recipe fetchRecipe(int idToFind);
 }
