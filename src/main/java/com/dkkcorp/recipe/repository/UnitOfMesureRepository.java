@@ -1,11 +1,11 @@
 package com.dkkcorp.recipe.repository;
 
-import com.dkkcorp.recipe.model.UnitOfMesure;
+import com.dkkcorp.recipe.model.UnitOfMeasure;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-public interface UnitOfMesureRepository extends CrudRepository<UnitOfMesure,Long> {
+public interface UnitOfMesureRepository extends CrudRepository<UnitOfMeasure,Long> {
 
-    Optional<UnitOfMesure> findByUom(String uom);
+    Optional<UnitOfMeasure> findByUom(String uom);
 }

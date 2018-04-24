@@ -22,7 +22,7 @@ public class RecipeCommand {
     private String url;
     private Difficulty difficulty;
     private Byte[] image;
-    private Note note;
+    private NoteCommand note;
     private Set<IngredientCommand> ingredientList=new HashSet<>();
     private Set<CategoryCommand> categoryList=new HashSet<>();
 }
