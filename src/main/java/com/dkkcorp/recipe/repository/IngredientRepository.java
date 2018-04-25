@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface IngredientRepository extends CrudRepository<Ingredient, Long> {
 
-    Optional<Ingredient> findByRecipeId(Long id);
+    Optional<Ingredient> findByRecipeId(Long idRecipe, Long idIngredient);
 }
