@@ -20,6 +20,7 @@
                 <div class="panel-heading">
                     <h1 class="panel-title">Welcome to Yumi Recipe!!!</h1>
                 </div>
+                <button type="button" class="btn btn-primary" onclick="location.href='/recipe/new'">Add new Recipe</button>
                 <div class="panel-body">
                     <div class="table-responsive" th:if="${not #lists.isEmpty(recipes)}">
                         <table class="table table-hover ">
@@ -28,6 +29,8 @@
                                 <th>ID</th>
                                 <th>Description</th>
                                 <th>Display</th>
+                                <th>Change</th>
+                                <th>Remove</th>
                             </tr>
                             </thead>
                             <tr th:remove="all">
@@ -41,7 +44,9 @@
                             <tr th:each="recipe : ${recipes}">
                                 <td th:text="${recipe.id}">334</td>
                                 <td th:text="${recipe.description}">Tasty Goodnees 3</td>
-                                <td><a href="#" th:href="@{'recipe/show/'+${recipe.id}}">View</a></td>
+                                <td><a href="#" th:href="@{'recipe/'+${recipe.id}+'/show'}">View</a></td>
+                                <td><a href="#" th:href="@{'recipe/'+${recipe.id}+'/update'}">Update</a></td>
+                                <td><a href="#" th:href="@{'recipe/'+${recipe.id}+'/delete'}">Delete</a></td>
                             </tr>
                         </table>
                     </div>

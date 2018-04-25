@@ -11,7 +11,7 @@
     <script src="/webjars/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
 </head>
-<!--/*@thymesVar id="recipe" type="guru.springframework.domain.Recipe"*/-->
+<!--/*@thymesVar id="recipe" type="com.dkkcorp.recipe.model.Recipe"*/-->
 <body>
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
@@ -29,7 +29,6 @@
                             </div>
                             <div class="col-md-9">
                                 <ul>
-                                    <!--/*@thymesVar id="recipe" type="guru.springframework.domain.Recipe"*/-->
                                     <li th:each="cat : ${recipe.getCategoryList()}" th:text="${cat.getDescription()}"></li>
                                     <li th:remove="all">cat two</li>
                                     <li th:remove="all">cat three</li>
@@ -90,7 +89,6 @@
                                 <ul>
                                     <li th:remove="all">1 Cup of milk</li>
                                     <li th:remove="all">1 Teaspoon of chocolate</li>
-                                    <!--/*@thymesVar id="recipe" type="guru.springframework.domain.Recipe"*/-->
                                     <li th:each="ingredient : ${recipe.ingredientList}" th:text="${(ingredient.getAmount()+' '+ingredient.getUom().getUom() +' '+ingredient.getDescription())}">1 Teaspoon of Sugar</li>
                                 </ul>
                             </div>
