@@ -40,6 +40,12 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
+    public IngredientCommand findByRecipeId(Long idRecipe, Long idIngredient) {
+        
+        return null;
+    }
+
+    @Override
     public IngredientCommand saveIngradient(IngredientCommand ingredientCommand) {
         Ingredient ingredient=ingredientCommandToIngredient.convert(ingredientCommand);
         ingredient=ingredientRepository.save(ingredient);
