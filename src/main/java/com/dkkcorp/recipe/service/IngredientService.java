@@ -9,7 +9,7 @@ import java.util.Optional;
 public interface IngredientService {
     List<IngredientCommand> fetchAllIngradient();
     IngredientCommand fetchIngradient(int idToFind);
-    IngredientCommand findByRecipeId(Long idRecipe, Long idIngredient);
+    IngredientCommand fetchIngredient(Long idRecipe, Long idIngredient);
     IngredientCommand saveIngradient(IngredientCommand recipe);
     void deleteIngradient(Integer id);
 }

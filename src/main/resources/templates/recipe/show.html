@@ -82,6 +82,7 @@
                 <div class="card">
                     <div class="card-header bg-primary">
                         <h1 class="card-title " >Ingredients</h1>
+
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -91,6 +92,9 @@
                                     <li th:remove="all">1 Teaspoon of chocolate</li>
                                     <li th:each="ingredient : ${recipe.ingredientList}" th:text="${(ingredient.getAmount()+' '+ingredient.getUom().getUom() +' '+ingredient.getDescription())}">1 Teaspoon of Sugar</li>
                                 </ul>
+                            </div>
+                            <div class="col-md-1">
+                                <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/list'}" role="button">View</a>
                             </div>
                         </div>
                     </div>

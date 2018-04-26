@@ -4,19 +4,27 @@ import com.dkkcorp.recipe.command.IngredientCommand;
 import com.dkkcorp.recipe.converter.IngredientCommandToIngredient;
 import com.dkkcorp.recipe.converter.IngredientToIngredientCommand;
 import com.dkkcorp.recipe.model.Ingredient;
+import com.dkkcorp.recipe.model.Recipe;
 import com.dkkcorp.recipe.repository.IngredientRepository;
+import com.dkkcorp.recipe.repository.RecipeRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class IngredientServiceImpl implements IngredientService {
     IngredientRepository ingredientRepository;
+    RecipeRepository recipeRepository;
     IngredientToIngredientCommand ingredientToIngredientCommand;
     IngredientCommandToIngredient ingredientCommandToIngredient;
 
-    public IngredientServiceImpl(IngredientRepository ingredientRepository, IngredientToIngredientCommand ingredientToIngredientCommand, IngredientCommandToIngredient ingredientCommandToIngredient) {
+    public IngredientServiceImpl(IngredientRepository ingredientRepository, RecipeRepository recipeRepository,
+                                 IngredientToIngredientCommand ingredientToIngredientCommand,
+                                 IngredientCommandToIngredient ingredientCommandToIngredient) {
         this.ingredientRepository = ingredientRepository;
+        this.recipeRepository = recipeRepository;
         this.ingredientToIngredientCommand = ingredientToIngredientCommand;
         this.ingredientCommandToIngredient = ingredientCommandToIngredient;
     }
@@ -40,9 +48,19 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public IngredientCommand findByRecipeId(Long idRecipe, Long idIngredient) {
-        
-        return null;
+    public IngredientCommand fetchIngredient(Long idRecipe, Long idIngredient) {
+        Optional<Recipe> optionalRecipe=recipeRepository.findById(Integer.valueOf(Math.toIntExact(idRecipe)));
+        if(!optionalRecipe.isPresent()){
+            throw new RuntimeException("no recipe with this id");
+        }
+        Optional<IngredientCommand> optionalIngredient=optionalRecipe.get().getIngredientList().stream()
+                .filter(ingredient -> ingredient.getId().equals(idIngredient))
+                .map(ingredient -> ingredientToIngredientCommand.convert(ingredient))
+                .findFirst();
+        if(!optionalIngredient.isPresent()){
+            throw new RuntimeException("no ingredient with this id");
+        }
+        return optionalIngredient.get();
     }
 
     @Override
