@@ -7,6 +7,7 @@ import com.dkkcorp.recipe.model.Ingredient;
 import com.dkkcorp.recipe.model.Recipe;
 import com.dkkcorp.recipe.repository.IngredientRepository;
 import com.dkkcorp.recipe.repository.RecipeRepository;
+import com.dkkcorp.recipe.repository.UnitOfMesureRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,14 +18,18 @@ import java.util.Optional;
 public class IngredientServiceImpl implements IngredientService {
     IngredientRepository ingredientRepository;
     RecipeRepository recipeRepository;
+    UnitOfMesureRepository unitOfMesureRepository;
     IngredientToIngredientCommand ingredientToIngredientCommand;
     IngredientCommandToIngredient ingredientCommandToIngredient;
 
-    public IngredientServiceImpl(IngredientRepository ingredientRepository, RecipeRepository recipeRepository,
+    public IngredientServiceImpl(IngredientRepository ingredientRepository,
+                                 RecipeRepository recipeRepository,
+                                 UnitOfMesureRepository unitOfMesureRepository,
                                  IngredientToIngredientCommand ingredientToIngredientCommand,
                                  IngredientCommandToIngredient ingredientCommandToIngredient) {
         this.ingredientRepository = ingredientRepository;
         this.recipeRepository = recipeRepository;
+        this.unitOfMesureRepository = unitOfMesureRepository;
         this.ingredientToIngredientCommand = ingredientToIngredientCommand;
         this.ingredientCommandToIngredient = ingredientCommandToIngredient;
     }
@@ -65,6 +70,29 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     public IngredientCommand saveIngradient(IngredientCommand ingredientCommand) {
+        Optional<Recipe> recipeOptional=recipeRepository.findById((int) (long) ingredientCommand.getRecipeId());
+        if(!recipeOptional.isPresent()){
+            return  new IngredientCommand();
+        }else {
+            Recipe recipe=recipeOptional.get();
+            IngredientCommand finalIngredientCommand = ingredientCommand;
+            Optional<Ingredient> optionalIngredient=recipe.getIngredientList()
+                    .stream()
+                    .filter(ingredient -> ingredient.getId().equals(finalIngredientCommand.getId()))
+                    .findFirst();
+            if(optionalIngredient.isPresent()){
+                optionalIngredient.get().setAmount(ingredientCommand.getAmount());
+                optionalIngredient.get().setId(ingredientCommand.getId());
+                optionalIngredient.get().setDescription(ingredientCommand.getDescription());
+                optionalIngredient.get().setUom(unitOfMesureRepository.findById(ingredientCommand.getUom().getId())
+                        .orElseThrow(()->new RuntimeException("not found")));
+            }else {
+                Ingredient ingredient=ingredientCommandToIngredient.convert(ingredientCommand);
+                ingredient.setRecipeIn(recipe);
+                recipe.addIngredient(ingredient);
+            }
+            Recipe recipeSaved=recipeRepository.save(recipe);
+        }
         Ingredient ingredient=ingredientCommandToIngredient.convert(ingredientCommand);
         ingredient=ingredientRepository.save(ingredient);
         ingredientCommand=ingredientToIngredientCommand.convert(ingredient);

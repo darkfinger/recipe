@@ -40,8 +40,9 @@ public class IngredientController {
         return "/recipe/ingredient/ingredientform";
     }
     @PostMapping("recipe/{idRecipe}/ingredient")
-    public String saveIngredient(@ModelAttribute String idRecipe){
-        
+    public String saveIngredient(@ModelAttribute String idRecipe, @ModelAttribute IngredientCommand command){
+
+        ingredientService.saveIngradient(command);
         return "redirect:/recipe/{idRecipe}/list";
     }
 }
