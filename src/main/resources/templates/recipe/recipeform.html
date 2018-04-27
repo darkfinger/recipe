@@ -20,13 +20,23 @@
                 <input type="hidden" th:field="*{id}"/>
                     <div class="card card-primary">
                         <div class="card-heading">
-                            <h1 class="card-title">Edit Recipe Information</h1>
+                            <div class="row">
+                                <div class="col-md-9"><h1 class="card-title">Edit Recipe Information</h1></div>
+                            <div class="col-md-1">
+                                <a class="btn btn-default" href="#"
+                                   th:href="@{'/recipe/' + ${recipe.id} + '/image'}" role="button">Change Image</a>
+                            </div></div>
                         </div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-3 form-group">
+                                <div class="col-md-8 form-group">
                                     <label>Recipe Description:</label>
                                     <input type="text" class="form-control" th:field="*{description}"/>
+                                </div>
+                                <div class="col-md-4">
+                                    <img src="../../static/images/guacamole400x400WithX.jpg"
+                                         th:src="@{'/recipe/' + ${recipe.id} + '/recipeimage'}"
+                                         width="100" height="100">
                                 </div>
                             </div>
                             <div class="row">
@@ -59,10 +69,10 @@
                                 </div>
                                 <div class="col-md-3 form-group">
                                     <label>Difficulty:</label>
-                                    <select class="form-control">
-                                        <option>Easy</option>
-                                        <option>Medium</option>
-                                        <option>Hard</option>
+                                    <select class="form-control" th:field="*{difficulty}">
+                                        <option th:each="dif:${T(com.dkkcorp.recipe.model.Difficulty).values()}"
+                                        th:value="${dif.name()}"
+                                        th:text="${dif.name()}">Easy</option>
                                     </select>
                                 </div>
                             </div>
@@ -90,7 +100,7 @@
                                     <h1 class="card-title">Ingredients</h1>
                                 </div>
                                 <div class="col-md-1">
-                                    <a class="btn btn-default" href="#" role="button">Edit</a>
+                                    <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/list'}" role="button">Edit</a>
                                 </div>
                             </div>
                         </div>

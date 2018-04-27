@@ -21,18 +21,24 @@
                     <div class="card-header bg-primary" >
                         <h3 th:text="${recipe.description}">Recipe Description Here!
                         </h3>
+
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-3">
                                 <h5>Categories:</h5>
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-md-5">
                                 <ul>
                                     <li th:each="cat : ${recipe.getCategoryList()}" th:text="${cat.getDescription()}"></li>
                                     <li th:remove="all">cat two</li>
                                     <li th:remove="all">cat three</li>
                                 </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <img src="../../static/images/guacamole400x400WithX.jpg"
+                                     th:src="@{'/recipe/' + ${recipe.id} + '/recipeimage'}"
+                                     width="100" height="100">
                             </div>
                         </div>
                         <div class="row">
@@ -93,9 +99,11 @@
                                     <li th:each="ingredient : ${recipe.ingredientList}" th:text="${(ingredient.getAmount()+' '+ingredient.getUom().getUom() +' '+ingredient.getDescription())}">1 Teaspoon of Sugar</li>
                                 </ul>
                             </div>
+                            <!--
                             <div class="col-md-1">
                                 <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/list'}" role="button">View</a>
                             </div>
+                            -->
                         </div>
                     </div>
                 </div>
