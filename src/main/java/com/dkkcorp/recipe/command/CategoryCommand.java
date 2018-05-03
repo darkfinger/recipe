@@ -11,5 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CategoryCommand {
     private Long id;
+	@NotNull
     private String description;
 }
